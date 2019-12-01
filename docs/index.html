@@ -25,7 +25,7 @@ body::after {
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
 
-fetch('all_team_info.json')
+fetch('Document/all_team_info.json')
   .then(
     function(response) {
       if (response.status !== 200) {
@@ -41,13 +41,16 @@ fetch('all_team_info.json')
       	let numberstats = data[1];
       	numberstats.forEach( teams => {
       		let teamStats = teams.teamStats[0].splits[0].stat;
+      		let teamConf = teams.conference
       		t.row.add([
       			parseInt(teams.teamStats[0].splits[1].stat.pts),
       			teams.name,
       			teamStats.wins,
       			teamStats.losses,
       			teamStats.ot,
-      			teamStats.pts]);
+      			teamStats.pts,
+      			teamStats.powerPlayPercentage,
+      			teamConf.name]);
       	});
 
     t.draw(false);
@@ -72,10 +75,13 @@ fetch('all_team_info.json')
             <th>Loses</th>
             <th>Overtime win</th>
             <th>Points</th>
+            <th>Powerplay</th>
+            <th>Conference</th>
         </tr>
     </thead>
     <tbody>
     </tbody>
 </table>
+<p>All the information has been taken from<a href="https://github.com/dword4/nhlapi"> Git Hub</a></p>
 </body>
 </html>
